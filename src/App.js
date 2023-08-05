@@ -1,26 +1,39 @@
 import React, {useState} from 'react';
 
 const App = () => {
-    // 상수, 변수, 함수, 상태를 선언하는 부분입니다.
-    //
-    // string, number, object, array, boolean type지정이 가능합니다.
-    const [value, setValue] = useState(0);
+    const [movies, setMovies] = useState([])
 
-    var a = "d";
-    const b = 10;
+    const inputMoviedata = () => {
+        const data = [
+            {
+                title: "Movie1",
+                desc: "너무재밌어",
+                rate: 4.3,
+            },
+            {
+                title: "Movie2",
+                desc: "너무재미없음",
+                rate: 2.1,
+            },
+            {
+                title: "Movie3",
+                desc: "그냥그럼",
+                rate: 3.0,
+            }
+        ]
 
-    // 함수 형태
-    const changeAvalue = () => {
-
-        setValue(b);
-
+        setMovies(data);
     }
 
-    //html을 불러오는 곳, javascript를 불러올 때에는 중괄호를 사용합니다.
-    return ( // 화면에 보여지는 부분입니다.
+    return (
         <div>
-          <h1>{value}</h1>
-            <button onClick={changeAvalue}>a내용바꾸기</button>
+            <button onClick={inputMoviedata}>데이터 불러오기!</button>
+            {movies && movies.map(movie => (
+                <div>
+                    <h1>{movie.title}</h1>
+                    <h3>{movie.desc}</h3>
+                </div>
+            ))}
         </div>
     );
 };
