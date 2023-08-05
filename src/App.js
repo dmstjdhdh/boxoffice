@@ -1,10 +1,10 @@
 import React from 'react';
-import Test from "./pages/Test";
+import MovieList from "./pages/MovieList";
 
 const App = () => {
     return (
         <div>
-            <Test/>
+            <MovieList/>
         </div>
     );
 };
