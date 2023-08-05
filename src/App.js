@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 
 const App = () => {
+<<<<<<< HEAD
     const [movies, setMovies] = useState({})
 
     const inputMoviedata = () => {
@@ -26,6 +27,28 @@ const App = () => {
         //         rate: 3.0,
         //     }
         // ]
+=======
+    const [movies, setMovies] = useState([])
+
+    const inputMoviedata = () => {
+        const data = [
+            {
+                title: "Movie1",
+                desc: "너무재밌어",
+                rate: 4.3,
+            },
+            {
+                title: "Movie2",
+                desc: "너무재미없음",
+                rate: 2.1,
+            },
+            {
+                title: "Movie3",
+                desc: "그냥그럼",
+                rate: 3.0,
+            }
+        ]
+>>>>>>> main
 
         setMovies(data);
     }
@@ -33,6 +56,7 @@ const App = () => {
     return (
         <div>
             <button onClick={inputMoviedata}>데이터 불러오기!</button>
+<<<<<<< HEAD
             <h1>
                 {movies.title}
             </h1>
@@ -48,6 +72,14 @@ const App = () => {
             {/*        <h3>{movie.desc}</h3>*/}
             {/*    </div>*/}
             {/*))}*/}
+=======
+            {movies && movies.map(movie => (
+                <div>
+                    <h1>{movie.title}</h1>
+                    <h3>{movie.desc}</h3>
+                </div>
+            ))}
+>>>>>>> main
         </div>
     );
 };
