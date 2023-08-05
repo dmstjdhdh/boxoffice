@@ -1,94 +1,43 @@
 import React, {useState} from 'react';
+import axios from "axios";
 
 const App = () => {
-<<<<<<< HEAD
-    const [movies, setMovies] = useState({})
+    //1. 데이터 담을 그릇 선언.
+    const [newsList, setNewsList] = useState([]);
 
-    const inputMoviedata = () => {
-        const data = {
-                title: "Movie1",
-                desc: [0, 3, 4, 10],
-                rate: 4.3,
-            }
-        // const data = [
-        //     {
-        //         title: "Movie1",
-        //         desc: "너무재밌어",
-        //         rate: 4.3,
-        //     },
-        //     {
-        //         title: "Movie2",
-        //         desc: "너무재미없음",
-        //         rate: 2.1,
-        //     },
-        //     {
-        //         title: "Movie3",
-        //         desc: "그냥그럼",
-        //         rate: 3.0,
-        //     }
-        // ]
-=======
-    const [movies, setMovies] = useState([])
+    //2. 데이터를 가져오는 함수 선언.
+    const getNewsList = async () => {
+        //5.네트워크 로직.
+        try {
 
-    const inputMoviedata = () => {
-        const data = [
-            {
-                title: "Movie1",
-                desc: "너무재밌어",
-                rate: 4.3,
-            },
-            {
-                title: "Movie2",
-                desc: "너무재미없음",
-                rate: 2.1,
-            },
-            {
-                title: "Movie3",
-                desc: "그냥그럼",
-                rate: 3.0,
-            }
-        ]
->>>>>>> main
-
-        setMovies(data);
+            const address = "https://newsapi.org/v2/everything?q=tesla&from=2023-07-05&sortBy=publishedAt&apiKey=879f9f6b8c7e4c16939ccefca8aac63e"
+            const result = await axios.get(address)
+            console.log("++++++++++++++++++++++++++", result.data.articles)
+            setNewsList(result.data.articles);
+        } catch (err) {
+            console.log("======================", err.message);
+        }
     }
 
+    //3. 데이터를 가져오는 버튼 선언.(버튼)
+    //4. 데이터의 갯수 display
+    //6. 데이터 매핑.
     return (
         <div>
-            <button onClick={inputMoviedata}>데이터 불러오기!</button>
-<<<<<<< HEAD
-            <h1>
-                {movies.title}
-            </h1>
-            <h1>
-                {/*{movies.desc && movies.desc.map(i => (*/}
-                {/*    <h3>{i},</h3>*/}
-                {/*))}*/}
-                {movies.desc[1]}
-            </h1>
-            {/*{movies && movies.map(movie => (*/}
-            {/*    <div>*/}
-            {/*        <h1>{movie.title}</h1>*/}
-            {/*        <h3>{movie.desc}</h3>*/}
-            {/*    </div>*/}
-            {/*))}*/}
-=======
-            {movies && movies.map(movie => (
-                <div>
-                    <h1>{movie.title}</h1>
-                    <h3>{movie.desc}</h3>
+
+            <button onClick={getNewsList}>뉴스리스트 가져오기</button>
+            {newsList && newsList.map((news, index) => (
+                <div key={index}>
+                    <h1>
+                        {news.title}
+                    </h1>
+                    <h3>
+                        {news.description}
+                    </h3>
                 </div>
             ))}
->>>>>>> main
         </div>
     );
 };
 
 export default App;
-
-//코드 빈도 순서.
-//1. 위에서 아래 순서로 빌드한다.
-//2. =를 기준으로, 우측에서 좌측으로 치환.
-//3. .은 하위 메서드를 호출하는 명령어.
-//4. ,는 '그리고'로 해석한다.
-//5. ()는 함수들의 모음.
