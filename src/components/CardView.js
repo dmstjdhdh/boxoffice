@@ -19,7 +19,12 @@ const CardView = ({data}) => {
                     <Card.Text>
                         {data.overview.slice(0,90)}
                     </Card.Text>
-                    <Button variant="primary">Go somewhere</Button>
+                    <Button
+                        href={data.title ? `/movie/${data.id}` : `/tv/${data.id}`}
+                        variant="primary"
+                    >
+                        Go somewhere
+                    </Button>
                 </Card.Body>
             </Card>
         </Col>
