@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from "axios";
+import {Button, Card, Col, Container, Row} from "react-bootstrap";
 
 const MovieList = () => {
     const [movies, setMovies] = useState([])
@@ -24,17 +25,29 @@ const MovieList = () => {
         }
     }
 
+    useEffect(() => {
+        getMovieList();
+    }, []);
+
     return (
-        <div>
-            <button onClick={getMovieList}>영화 정보 가져오기</button>
-            {movies && movies.map((movie, index) =>(
-                <div key={index}>
-                    <h1>
-                        {movie.title}
-                    </h1>
-                </div>
-            ))}
-        </div>
+        <Container>
+            <Row>
+                {movies && movies.map((movie, index) =>(
+                    <Col className={"mt-3"}>
+                        <Card style={{ width: '18rem' }}>
+                            <Card.Img variant="top" src={"https://image.tmdb.org/t/p/w500"+movie.poster_path} />
+                            <Card.Body>
+                                <Card.Title>{movie.title.slice(0,10)}</Card.Title>
+                                <Card.Text>
+                                    {movie.overview.slice(0,90)}
+                                </Card.Text>
+                                <Button variant="primary">Go somewhere</Button>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                ))}
+            </Row>
+        </Container>
     );
 };
 
