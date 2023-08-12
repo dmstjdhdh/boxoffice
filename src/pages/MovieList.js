@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {Button, Card, Col, Container, Row} from "react-bootstrap";
+import ContainerView from "../components/ContainerView";
+import CardView from "../components/CardView";
 
 const MovieList = () => {
     const [movies, setMovies] = useState([])
@@ -30,24 +32,13 @@ const MovieList = () => {
     }, []);
 
     return (
-        <Container>
+        <ContainerView title={"MovieList"}>
             <Row>
                 {movies && movies.map((movie, index) =>(
-                    <Col className={"mt-3"}>
-                        <Card style={{ width: '18rem' }}>
-                            <Card.Img variant="top" src={"https://image.tmdb.org/t/p/w500"+movie.poster_path} />
-                            <Card.Body>
-                                <Card.Title>{movie.title.slice(0,10)}</Card.Title>
-                                <Card.Text>
-                                    {movie.overview.slice(0,90)}
-                                </Card.Text>
-                                <Button variant="primary">Go somewhere</Button>
-                            </Card.Body>
-                        </Card>
-                    </Col>
+                    <CardView data={movie} key={index}/>
                 ))}
             </Row>
-        </Container>
+        </ContainerView>
     );
 };
 
