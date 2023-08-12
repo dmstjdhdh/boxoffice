@@ -2,13 +2,13 @@ import tmdbApi from "./api";
 import {useQuery} from "@tanstack/react-query";
 
 const fetchMovies = async () => {
-    const result = await tmdbApi.get("/movie/now_playing?language=en-US&page=1");
-    console.log(result);
-    return result.data.results;
+    const {data} = await tmdbApi.get("/movie/now_playing?language=en-US&page=1");
+
+    return data.results;
 }
 
 const useFetchMovies = () =>
-    useQuery(["movies"], fetchMovies, {
+    useQuery(["movies"], () => fetchMovies(), {
         keepPreviousData: true,
     })
 

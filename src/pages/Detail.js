@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {useLocation, useNavigate, useParams} from "react-router-dom";
-import axios from "axios";
 import {Button, Container} from "react-bootstrap";
+import {useFetchMovieAndTvById} from "../services/getMovieandTvById";
+import data from "bootstrap/js/src/dom/data";
+import LoadingView from "../components/LoadingView";
 
 const Detail = () => {
 
@@ -9,38 +11,18 @@ const Detail = () => {
     const navigate = useNavigate();
     console.log("+++++++++++++++++++++++",location.pathname.includes("movie"));
 
-    const provider = location.pathname.includes("movie") ? "movie" : "tv";
-
     const {movieId, tvId} = useParams()
 
-    const id = movieId ? movieId : tvId;
+    const {data , isLoading} = useFetchMovieAndTvById(
+        location.pathname.includes("movie") ? "movie" : "tv",
+        location.pathname.includes("movie") ? movieId : tvId
+    );
 
-    const [item, setItem] = useState({});
-
-    const getOTTdata = async () => {
-        try{
-            const address = `https://api.themoviedb.org/3/${provider}/${id}?language=en-US`
-            const options = {
-                headers: {
-                    accept: 'application/json',
-                    Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MGRkZDE3ODg2YzM5YWQwNGYyMTA4YzU4YzdhYjMyNSIsInN1YiI6IjY0Y2UwMDEwZDlmNGE2MDNiNDlmZGQyMiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.OAkt0tW_dGyVk-7QLJj8u_vZbaRTduN23FMmUp7o98Q'
-                }
-            }
-
-            const result = await axios.get(address, options);
-
-            console.log("##################", result.data);
-
-            setItem(result.data);
-        }
-        catch (err){
-            console.log(err.message);
-        }
+    if(isLoading){
+        return (
+            <LoadingView/>
+        )
     }
-
-    useEffect(() => {
-        getOTTdata();
-    }, []);
 
     return (
         <Container>
@@ -48,10 +30,10 @@ const Detail = () => {
                 뒤로가기
             </Button>
             <h1>
-                {item.title ? item.title : item.name};
+                {data.title ? data.title : data.name};
             </h1>
             <h3>
-                {item.overview}
+                {data.overview}
             </h3>
         </Container>
     );
