@@ -1,11 +1,14 @@
 import React from 'react';
-import MovieList from "./pages/MovieList";
 import {RouterProvider} from "react-router-dom";
 import router from "./router";
+import NaviMenus from "./components/NaviMenus";
 
 const App = () => {
     return (
-        <RouterProvider router={router}/>
+        <>
+            <NaviMenus/>
+            <RouterProvider router={router}/>
+        </>
     );
 };
 
